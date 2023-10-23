@@ -134,7 +134,7 @@ When user login sucessfully, a unique accessToken will be returned.
 
 > click here to see the E-R model [here](https://app.dbdesigner.net/designer/schema/564966).
 ## Postman documentation
-> click here to see the E-R model [here](https://documenter.getpostman.com/view/13945163/2s9YRCVqou).
+> click here to see the Postman documentation [here](https://documenter.getpostman.com/view/13945163/2s9YRCVqou).
 
 ## Developer
 | Name            | Email                    | 
