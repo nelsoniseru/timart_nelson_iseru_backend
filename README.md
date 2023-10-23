@@ -140,5 +140,7 @@ When user login sucessfully, a unique accessToken will be returned.
 | Name            | Email                    | 
 |-----------------|--------------------------|
 | Nelson Iseru    | nelsoniseru08@gmail.com  |
+| Phone Number    | +2349026915561           |
+
 
 
