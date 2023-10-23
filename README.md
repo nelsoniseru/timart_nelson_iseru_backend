@@ -103,11 +103,11 @@ When user login sucessfully, a unique accessToken will be returned.
            |
 ## Order route
 
-| APIs                                                  | Method | Desc                          |  AccessToken |
-| ------------------------------------------------------| ------ |-------------------------------|              |     
-| http://localhost:3002/api/v1/orders/create-order      | POST   | Create order for user         | Required     |
-| http://localhost:3002/api/v1/orders/get-user-order     | GET    |  Find user order  | Required  |              |
-| http://localhost:3002/api/v1/orders/get-most-orders   | GET    | Get user with most order      | Required     |
+| APIs                                                  | Method | Desc                    |
+| ------------------------------------------------------| ------ |-------------------------|
+| http://localhost:3002/api/v1/orders/create-order      | POST   | Create order for user   |      
+| http://localhost:3002/api/v1/orders/get-user-order    | GET    |  Find user order       | 
+| http://localhost:3002/api/v1/orders/get-most-orders   | GET    | Get user with most order|     
 
 # Models
 ## User model
