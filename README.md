@@ -141,6 +141,7 @@ When user login sucessfully, a unique accessToken will be returned.
 |-----------------|--------------------------|
 | Nelson Iseru    | nelsoniseru08@gmail.com  |
 | Phone Number    | +2349026915561           |
+| Position        | Backend developer        |
 
 
 
