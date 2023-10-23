@@ -116,7 +116,7 @@ When user login sucessfully, a unique accessToken will be returned.
 | id              | int    |
 | email           | string |
 | password        | string | 
-| wallet_balance  | decimal|  
+| wallet          | decimal|  
 
 
 ## Order model
