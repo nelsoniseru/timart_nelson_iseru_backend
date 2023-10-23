@@ -6,6 +6,7 @@ const STATUS_CODE_UNAUTHORIZED = 401;
 const STATUS_CODE_SERVER_ERROR = 500;
 const STATUS_CODE_ACCESS_DENIED = 403;
 const users = '/api/v1/users';
+const orders = '/api/v1/orders';
 
 module.exports = {
   STATUS_CODE_OK,
@@ -15,4 +16,5 @@ module.exports = {
   STATUS_CODE_UNAUTHORIZED,
   STATUS_CODE_ACCESS_DENIED,
   users,
+  orders
 };

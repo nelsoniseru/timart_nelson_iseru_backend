@@ -1,8 +1,6 @@
 const bcrypt = require('bcryptjs');
 const User = require('./users.model');
-const  {SendMail} = require("../../utils/email")
 
-/* eslint-disable class-methods-use-this */
 const {
     generateToken,
     hashPassword,
@@ -12,52 +10,51 @@ class UserService {
     sayHello() {
         return "hello world"
     }
-
-    async postLogin(username, password) {
-        const user = await User.findOne({ username })
+    async getAllUsers(req, res) {
+        return await User.findAll({})
+    }
+    async postRegister(username,email,password) {
+        const findUser = await User.findOne({ where:{email:email}})
+        if (findUser) throw new Error(`User already exist.`);
+        const HashedPassword = await hashPassword(password)
+       const newUser = await User.create({
+            email,
+            password:HashedPassword,
+            username
+        })
+        return {
+            id:newUser.id,
+            message:"User created successfully",
+            token: await generateToken(newUser)
+        }
+    }
+    async postLogin(email, password) {
+        const user = await User.findOne({ where:{email:email} })
         if (!user) throw new Error(`Invalid email or password..`);
         if (!(await bcrypt.compare(password, user.password))) throw new Error(`Invalid email or password.`);
-        return await generateToken(user)
-    }
-
-    async getProfile(user) {
-        return await User.findOne({ _id: user.id })
-    }
-
-    async postVerifyMail(username, otp) {
-        const user = await User.findOne({ username })
-        if (!user) throw new Error(`User does not exist`);
-     
-        const mailData = {
-            from: `tezz08@gmail.com`,
-            to: `${username}`,
-            subject: `Forgot Password`,
-            text: `Dear User your otp: ${otp}`,
-          };
-          // Send the email
-          return SendMail(mailData)
-         
+        return {
+            id:user.id,
+            token:await generateToken(user)
         }
-    
-
-    async postOtp(username, otp) {
-        const user = await User.findOne({ username });
-        if (!user) throw new Error(`User does not exist.`);
-        if (user.otp !== otp) throw new Error(`Incorrect otp.`);
-        user.otp = ""
-        await user.save()
-        return "Successful Otp"
     }
 
-
-
-    async postResetPassword(username, password, c_password) {
-        const user = await User.findOne({ username })
-        if (user) throw new Error(`User does not exist.`);
-        if (password !== c_password) throw new Error(`Password does not match.`);
-        user.password = await hashPassword(password)
-        await user.save()
-        return "Password changed successfully"
+    async getUser(id) {
+        const user = await User.findOne({ where:{id:id} })
+        if (!user) throw new Error(`User not found..`);
+        return await User.findOne({ where:{id:id} })
     }
+
+ 
+      async postDeposit(amt, user) {
+        const findUser = await User.findOne({ where: { email: user.email } });
+      
+        if (!findUser) {
+          throw new Error(`user doesnt exist.`);
+        }
+        findUser.wallet = parseFloat(findUser.wallet) + parseFloat(amt)
+        findUser.save()
+        return findUser
+      }
+
 }
 module.exports = UserService;

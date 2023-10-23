@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const otpGenerator = require('otp-generator')
 
 const {
   STATUS_CODE_UNAUTHORIZED,
@@ -18,14 +19,8 @@ const hashPassword = async (password) => {
   return hashedPassword;
 };
 
-const generateNumericOTP = (length) => {
-  let otp = '';
-  const digits = '0123456789';
-  for (let i = 0; i < length; i += 1) {
-    const randomIndex = Math.floor(Math.random() * digits.length);
-    otp += digits[randomIndex];
-  }
-  return otp;
+const generateTransactionId = () => {
+  return otpGenerator.generate(8, { upperCaseAlphabets: false, specialChars: false })
 };
 
 const checkError = (req) => {
@@ -36,7 +31,7 @@ const checkError = (req) => {
 const generateToken = (user) => {
   const payload = {
     id: user.id,
-    username: user.username,
+    email: user.email,
   };
   return jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: process.env.EXPIRES_IN });
 };
@@ -62,14 +57,35 @@ const authenticateToken = (req, res, next) => {
   return undefined;
 };
 
+const graphqlForAuth = (req, res, next) => {
 
+  if (!req.header('token')) {
+    req.user = null
+  } else {
+    const token = req.header('token').split(' ')[1];
+    if (!token) {
+      req.user = null
+    }
+
+    jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
+      if (err) {
+        req.user = null
+      }
+
+      req.user = user;
+    });
+
+  }
+  next();
+}
 
 module.exports = {
   checkError,
   generateToken,
   authenticateToken,
-  generateNumericOTP,
+  generateTransactionId,
   hashPassword,
+  graphqlForAuth
 }
 
 

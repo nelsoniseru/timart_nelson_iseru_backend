@@ -1,35 +1,32 @@
 const { Sequelize, DataTypes, Model } = require('sequelize')
-const  AppConfig = require('../../utils/config')
-const Order = require('../orders/orders.model')
+const AppConfig = require('../../utils/config')
 const config = new AppConfig();
-
 const sequelize = config.getSequelizeInstance();
-class User extends Model { }
-User.init({
+class Order extends Model { }
+Order.init({
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
     },
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      
-      },
-    email: {
+    item_name: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        allowNull: true,
     },
-    wallet: {
+    transaction_id: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    order_date: {
+        type: DataTypes.DATE,
+        allowNull: true,
+    },
+    total_amount: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
         defaultValue: 0.0
     },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
+
     createdAt: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -42,10 +39,9 @@ User.init({
     }
 }, {
     sequelize,
-    modelName: 'User'
+    modelName: 'Order'
 })
 
-User.hasMany(Order, { foreignKey: 'userId' });
-Order.belongsTo(User, { foreignKey: 'userId' });
 
-module.exports = User
+
+module.exports = Order

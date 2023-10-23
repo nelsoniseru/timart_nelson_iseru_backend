@@ -4,9 +4,8 @@ const {
 
 const {
   validateUserInput,
-  validateEmailInput,
-  validateOtp,
-  validateResetPasswordInput,
+  validateLoginInput,
+  validateDepositInput
 } = require('../../utils/validation');
 
 const {
@@ -19,18 +18,18 @@ const UserService = require('./users.service');
 const userService = new UserService();
 const userController = new UserController(userService);
 class UsersRoutes {
-  constructor(app, userController) {
+  constructor(app) {
     this.app = app;
     this.userController = userController;
   }
 
   async routes() {
     this.app.get('/', (req, res) => userController.sayHello(req, res));
-    this.app.post(`${users}/login`, validateUserInput, (req, res) => userController.postLogin(req, res));
-    this.app.post(`${users}/mail-verification`, validateEmailInput, (req, res) => userController.postVerifyMail(req, res));
-    this.app.post(`${users}/otp`, validateOtp, (req, res) => userController.postOtp(req, res));
-    this.app.post(`${users}/reset-password`, validateResetPasswordInput, (req, res) => userController.postResetPassword(req, res));
-    this.app.get(`${users}/dashboard`, authenticateToken, (req, res) => userController.getProfile(req, res));
+    this.app.post(`${users}/register`, validateUserInput, (req, res) => userController.postRegister(req, res));
+    this.app.post(`${users}/login`, validateLoginInput, (req, res) => userController.postLogin(req, res));
+    this.app.get(`${users}/get-user/:id`, (req, res) => userController.getUser(req, res));
+    this.app.post(`${users}/deposit`, authenticateToken, validateDepositInput, (req, res) => userController.postDeposit(req, res));
+
   }
 }
 
