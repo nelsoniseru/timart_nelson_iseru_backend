@@ -16,7 +16,7 @@ This is a Timart Node.js Sql Express based RESTful Api Project.
 ## 1. Clone Project into your local machine
 
 ```
-https://github.com/nelsoniseru/lendsqr_project.git
+https://github.com/nelsoniseru/timart_nelson_iseru_backend.git
 ```
 
 
@@ -33,14 +33,23 @@ start your mysql server
 ### create a dot env file
 fill in the values for the variables
 HOST = 
+
 DIALECT=
+
 SERVER_PORT=
+
 DB_PORT=
+
 DB_NAME=
+
 DB_USER=
+
 DB_PASSWORD=
+
 DEV=dev
-SECRET_KEY = d
+
+SECRET_KEY = 
+
 EXPIRES_IN= 
 
 
