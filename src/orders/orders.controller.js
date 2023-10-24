@@ -41,12 +41,11 @@ class OrderController {
         try {
             const { user } = req;
             const result = await this.orderService.getUserOrders(user)
-console.log(result)
             return res.status(STATUS_CODE_OK)
                 .json({
                     success: true,
-                    message:"user orders found successfully",
-                    users:result
+                    message: "user orders found successfully",
+                    users: result
                 });
         } catch (error) {
             res.status(STATUS_CODE_BAD_REQUEST)
@@ -56,15 +55,14 @@ console.log(result)
                 });
         }
     }
-   async getUserWithMostOrder(req,res){
+    async getUserWithMostOrder(req, res) {
         try {
             const result = await this.orderService.getUserWithMostOrder()
-             console.log(result)
             return res.status(STATUS_CODE_OK)
                 .json({
                     success: true,
-                    message:"users orders found successfully",
-                    users:result
+                    message: "users orders found successfully",
+                    users: result
                 });
         } catch (error) {
             res.status(STATUS_CODE_BAD_REQUEST)

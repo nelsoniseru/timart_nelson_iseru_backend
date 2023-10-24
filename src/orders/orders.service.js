@@ -14,9 +14,9 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: process.env.HOST,
     dialect: process.env.DIALECT,
-    port:process.env.DB_PORT
+    port: process.env.DB_PORT
 
-  });
+});
 class OrderService {
 
     async postCreateOrder(amt, item_name, user) {
@@ -48,23 +48,23 @@ class OrderService {
         if (result.count <= 0) throw new Error('no records found.')
         return result
     }
-    async getUserWithMostOrder(){
-  return await  User.findAll({
+    async getUserWithMostOrder() {
+        return await User.findAll({
             attributes: [
-            'id',
-             'username',
-             [sequelize.literal('(SELECT COUNT(*) FROM Orders WHERE Orders.UserId = User.id)'), 'order_count']
-        ],
-            
+                'id',
+                'username',
+                [sequelize.literal('(SELECT COUNT(*) FROM Orders WHERE Orders.UserId = User.id)'), 'order_count']
+            ],
+
             group: ['User.id'],
             order: sequelize.literal('order_count DESC'),
             limit: 10,
-          })
+        })
 
     }
-  
+
 }
 
 module.exports = OrderService;
- 
+
 

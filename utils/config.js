@@ -1,6 +1,6 @@
 const morgan = require('morgan');
 const express = require('express');
-
+const cors = require("cors")
 const { Sequelize } = require('sequelize');
 
 
@@ -20,6 +20,7 @@ class AppConfig {
   }
 
   async configuration() {
+    this.app.use(cors())
     this.app.use(morgan(process.env.DEV));
     this.app.use(express.json());
     

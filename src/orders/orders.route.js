@@ -25,7 +25,6 @@ class OrderRoutes {
         this.app.post(`${orders}/create-order`, authenticateToken, validateOrderInput, (req, res) => orderController.postCreateOrder(req, res));
         this.app.get(`${orders}/get-user-order`, authenticateToken, (req, res) => orderController.getUserOrders(req, res));
         this.app.get(`${orders}/get-most-orders`, (req, res) => orderController.getUserWithMostOrder(req, res));
-        
     }
 }
 

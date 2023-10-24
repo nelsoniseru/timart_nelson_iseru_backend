@@ -42,7 +42,7 @@ config.Dbconnect().then(async () => {
     // Synchronize all models with the database
     await config.synchronizeAllModelsWithDatabase([User, Order]);
     require("./utils/users-seed")
-}).then(()=>{
+}).then(() => {
     require("./utils/orders-seed")
 })
     .catch((error) => {

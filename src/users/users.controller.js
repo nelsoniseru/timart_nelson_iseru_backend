@@ -17,17 +17,17 @@ class UserController {
     try {
       const message = await this.userService.sayHello();
       return res.status(STATUS_CODE_OK)
-      .json({ 
-        success:true,
-        message,
-      
-      });
+        .json({
+          success: true,
+          message,
+
+        });
     } catch (error) {
       res.status(STATUS_CODE_BAD_REQUEST)
-      .json({
-         success:false,
-        message: error.message 
-      });
+        .json({
+          success: false,
+          message: error.message
+        });
     }
   }
 
@@ -36,37 +36,37 @@ class UserController {
     try {
       const errors = checkError(req)
       if (!errors.isEmpty()) return res.status(STATUS_CODE_BAD_REQUEST)
-      .json({
-     success:false,
-     message: errors.mapped() 
-     })
-      const { username,email, password } = req.body
-      const result =  await this.userService.postRegister(username,email,password)
+        .json({
+          success: false,
+          message: errors.mapped()
+        })
+      const { username, email, password } = req.body
+      const result = await this.userService.postRegister(username, email, password)
       return res.status(STATUS_CODE_OK)
-      .json({ 
-        success:true,
-        message:result.message,
-        token:result.token
-      });   
-     } catch (error) {
+        .json({
+          success: true,
+          message: result.message,
+          token: result.token
+        });
+    } catch (error) {
       res.status(STATUS_CODE_BAD_REQUEST)
-      .json({
-        success:false, 
-        message: error.message 
-      });
+        .json({
+          success: false,
+          message: error.message
+        });
     }
   }
 
   async postLogin(req, res) {
     try {
       const errors = checkError(req);
-      if (!errors.isEmpty()) return res.status(STATUS_CODE_BAD_REQUEST).json({ success:false, message: errors.mapped()  });
+      if (!errors.isEmpty()) return res.status(STATUS_CODE_BAD_REQUEST).json({ success: false, message: errors.mapped() });
 
       const { email, password } = req.body;
       const token = await this.userService.postLogin(email, password);
-      return res.status(STATUS_CODE_OK).json({success:true, message: 'user login successfully', token });
+      return res.status(STATUS_CODE_OK).json({ success: true, message: 'user login successfully', token });
     } catch (error) {
-      res.status(STATUS_CODE_BAD_REQUEST).json({success:false, message: error.message });
+      res.status(STATUS_CODE_BAD_REQUEST).json({ success: false, message: error.message });
     }
   }
 
@@ -76,18 +76,18 @@ class UserController {
       const result = await this.userService.getUser(id);
       return res.status(STATUS_CODE_OK)
         .json({
-        success:true,
-        message: "user found successfully", 
-        user: result
-       })
+          success: true,
+          message: "user found successfully",
+          user: result
+        })
 
     } catch (error) {
       res.status(STATUS_CODE_BAD_REQUEST)
-      .json({
-        success:false, 
-        message: error.message
-       });
-  }
+        .json({
+          success: false,
+          message: error.message
+        });
+    }
   }
 
 
@@ -107,24 +107,24 @@ class UserController {
     try {
       const errors = checkError(req)
       if (!errors.isEmpty()) return res.status(STATUS_CODE_BAD_REQUEST)
-      .json({
-     success:false,
-     message: errors.mapped() 
-     })
-      const result =  await this.userService.getAllUsers()
+        .json({
+          success: false,
+          message: errors.mapped()
+        })
+      const result = await this.userService.getAllUsers()
       return res.status(STATUS_CODE_OK)
-      .json({ 
-        success:true,
-        message:"Users found successfully",
-        user:result,
-        token:result.token
-      });   
-     } catch (error) {
+        .json({
+          success: true,
+          message: "Users found successfully",
+          user: result,
+          token: result.token
+        });
+    } catch (error) {
       res.status(STATUS_CODE_BAD_REQUEST)
-      .json({
-        success:false, 
-        message: error.message 
-      });
+        .json({
+          success: false,
+          message: error.message
+        });
     }
   }
 }

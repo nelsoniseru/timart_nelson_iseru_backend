@@ -8,19 +8,19 @@ const jsonData = JSON.parse(fs.readFileSync('orders.json', 'utf8'));
 
 // Seed the data into the database
 async function seedData() {
-  for (const data of jsonData) {
-  
+    for (const data of jsonData) {
+
         await Order.create(data);
     }
-  
-  }
 
- Order.findAll().then(order=>{
-    if(order.length == 0){
+}
+
+Order.findAll().then(order => {
+    if (order.length == 0) {
         seedData().then(() => {
-          console.log('Data seeded successfully.');
+            console.log('Data seeded successfully.');
         }).catch((error) => {
-          console.error('Error seeding data:', error);
+            console.error('Error seeding data:', error);
         });
-        }
- })
+    }
+})
