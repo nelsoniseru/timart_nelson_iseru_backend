@@ -18,7 +18,6 @@ const orderController = new OrderController(orderService);
 class OrderRoutes {
     constructor(app) {
         this.app = app;
-        this.orderController = orderController;
     }
 
     async routes() {

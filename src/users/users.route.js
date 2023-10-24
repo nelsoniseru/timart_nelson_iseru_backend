@@ -20,7 +20,6 @@ const userController = new UserController(userService);
 class UsersRoutes {
   constructor(app) {
     this.app = app;
-    this.userController = userController;
   }
 
   async routes() {
